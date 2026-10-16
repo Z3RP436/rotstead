@@ -103,6 +103,7 @@ footer a { color: var(--muted); }
 		<a href="trailer.mp4">Trailer ansehen (MP4)</a>
 	</video>
 	<a class="download" href="https://github.com/Z3RP436/rotstead/releases/latest/download/Rotstead.exe">EXE HERUNTERLADEN</a>
+	<p class="meta" id="downloads" hidden></p>
 	<p class="meta">Windows 64-bit · v0.1.1 · 263 MB · keine Installation nötig</p>
 	<p class="note">Die exe ist nicht signiert. Wenn Windows SmartScreen warnt:
 		„Weitere Informationen“ → „Trotzdem ausführen“.<br>
@@ -112,5 +113,29 @@ footer a { color: var(--muted); }
 	<a href="https://github.com/Z3RP436/rotstead/releases">Alle Versionen</a>
 	· Schrift Black Ops One (<a href="OFL_BlackOpsOne.txt">OFL</a>)
 </footer>
+<script>
+// total exe downloads across all releases; cached briefly because the
+// unauthenticated GitHub API allows only 60 requests per hour and IP
+(async () => {
+	const el = document.getElementById("downloads");
+	const KEY = "rotstead-downloads", TTL = 10 * 60 * 1000;
+	let n;
+	try {
+		const c = JSON.parse(localStorage.getItem(KEY));
+		if (c && Date.now() - c.t < TTL) n = c.n;
+	} catch {}
+	if (n === undefined) {
+		try {
+			const res = await fetch("https://api.github.com/repos/Z3RP436/rotstead/releases?per_page=100");
+			if (!res.ok) return;
+			n = (await res.json()).reduce((sum, r) => sum + r.assets.reduce((s, a) => s + a.download_count, 0), 0);
+			try { localStorage.setItem(KEY, JSON.stringify({ t: Date.now(), n })); } catch {}
+		} catch { return; }
+	}
+	if (!n) return;
+	el.textContent = n.toLocaleString("de-DE") + (n === 1 ? " Download" : " Downloads");
+	el.hidden = false;
+})();
+</script>
 </body>
 </html>
