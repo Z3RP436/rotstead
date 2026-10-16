@@ -36,7 +36,16 @@ body {
 	background-image: repeating-linear-gradient(
 		0deg, transparent 0 22px, rgba(20, 16, 16, 0.05) 22px 24px);
 }
-main { max-width: 560px; width: 100%; }
+main { max-width: 960px; width: 100%; }
+.trailer {
+	display: block;
+	width: 100%;
+	aspect-ratio: 16 / 9;
+	margin: 0 0 36px;
+	background: var(--ink);
+	border: 3px solid var(--ink);
+	box-shadow: 6px 6px 0 var(--blood);
+}
 .logo {
 	width: min(360px, 80vw);
 	height: auto;
@@ -78,6 +87,8 @@ h1 {
 code { font-size: 11px; word-break: break-all; }
 footer { color: var(--muted); font-size: 13px; margin-top: 40px; }
 footer a { color: var(--muted); }
+/* the text keeps its narrow column under the wide trailer */
+.tagline, .meta, .note { max-width: 560px; margin-left: auto; margin-right: auto; }
 </style>
 </head>
 <body>
@@ -86,6 +97,11 @@ footer a { color: var(--muted); }
 	<h1>ROTSTEAD</h1>
 	<p class="tagline">Stell deine Überlebenden auf, rüste sie aus und schick sie durch die Horde.
 		Ein Zombie-Autobattler-Roguelite.</p>
+	<video class="trailer" controls preload="metadata" playsinline poster="trailer.jpg"
+		aria-label="Rotstead-Trailer: Kämpfe, Lagerausbau, Kisten und Bosse">
+		<source src="trailer.mp4" type="video/mp4">
+		<a href="trailer.mp4">Trailer ansehen (MP4)</a>
+	</video>
 	<a class="download" href="https://github.com/Z3RP436/rotstead/releases/latest/download/Rotstead.exe">EXE HERUNTERLADEN</a>
 	<p class="meta">Windows 64-bit · v0.1.0 · 263 MB · keine Installation nötig</p>
 	<p class="note">Die exe ist nicht signiert. Wenn Windows SmartScreen warnt:
