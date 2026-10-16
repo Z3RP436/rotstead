@@ -37,6 +37,20 @@ body {
 		0deg, transparent 0 22px, rgba(20, 16, 16, 0.05) 22px 24px);
 }
 main { max-width: 960px; width: 100%; }
+/* faint logo behind the content; --px/--py are set by the parallax script */
+.bg-logo {
+	position: fixed;
+	left: 50%;
+	top: 50%;
+	width: min(640px, 90vw);
+	height: auto;
+	opacity: 0.08;
+	z-index: -1;
+	pointer-events: none;
+	user-select: none;
+	transform: translate(calc(-50% + var(--px, 0px)), calc(-50% + var(--py, 0px)));
+	will-change: transform;
+}
 .trailer {
 	display: block;
 	width: 100%;
@@ -45,10 +59,6 @@ main { max-width: 960px; width: 100%; }
 	background: var(--ink);
 	border: 3px solid var(--ink);
 	box-shadow: 6px 6px 0 var(--blood);
-}
-.logo {
-	width: min(360px, 80vw);
-	height: auto;
 }
 h1 {
 	font-family: "Black Ops One", Impact, sans-serif;
@@ -92,8 +102,8 @@ footer a { color: var(--muted); }
 </style>
 </head>
 <body>
+<img class="bg-logo" src="logo.png" alt="" aria-hidden="true" width="560" height="560">
 <main>
-	<img class="logo" src="logo.png" alt="Rotstead-Logo: Zombiekopf vor roter Sonne" width="560" height="560">
 	<h1>ROTSTEAD</h1>
 	<p class="tagline">Stell deine Überlebenden auf, rüste sie aus und schick sie durch die Horde.
 		Ein Zombie-Autobattler-Roguelite.</p>
@@ -113,6 +123,30 @@ footer a { color: var(--muted); }
 	<a href="https://github.com/Z3RP436/rotstead/releases">Alle Versionen</a>
 	· Schrift Black Ops One (<a href="OFL_BlackOpsOne.txt">OFL</a>)
 </footer>
+<script>
+// background logo parallax: drifts slower than the page on scroll and
+// shifts slightly with the mouse; off for reduced motion
+(() => {
+	if (matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+	const logo = document.querySelector(".bg-logo");
+	let mx = 0, my = 0, queued = false;
+	const update = () => {
+		queued = false;
+		logo.style.setProperty("--px", mx + "px");
+		logo.style.setProperty("--py", (my - scrollY * 0.4) + "px");
+	};
+	const queue = () => { if (!queued) { queued = true; requestAnimationFrame(update); } };
+	addEventListener("scroll", queue, { passive: true });
+	if (matchMedia("(pointer: fine)").matches) {
+		addEventListener("mousemove", (e) => {
+			mx = (e.clientX / innerWidth - 0.5) * -30;
+			my = (e.clientY / innerHeight - 0.5) * -30;
+			queue();
+		}, { passive: true });
+	}
+	update();
+})();
+</script>
 <script>
 // total exe downloads across all releases; cached briefly because the
 // unauthenticated GitHub API allows only 60 requests per hour and IP
