@@ -1,0 +1,100 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Rotstead</title>
+<meta name="description" content="Rotstead – Zombie-Autobattler-Roguelite für Windows. Kostenloser Download.">
+<link rel="icon" type="image/png" href="favicon.png">
+<style>
+@font-face {
+	font-family: "Black Ops One";
+	src: url("BlackOpsOne-Regular.woff") format("woff");
+	font-display: swap;
+}
+:root {
+	--paper: #e9e1cc;
+	--ink: #141010;
+	--blood: #b02121;
+	--blood-dark: #8c1212;
+	--muted: #5a5048;
+}
+* { box-sizing: border-box; }
+html, body { margin: 0; }
+body {
+	min-height: 100vh;
+	background: var(--paper);
+	color: var(--ink);
+	font: 17px/1.5 Georgia, "Times New Roman", serif;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	padding: 32px 16px;
+	text-align: center;
+	/* faint ink lines, like the title screen */
+	background-image: repeating-linear-gradient(
+		0deg, transparent 0 22px, rgba(20, 16, 16, 0.05) 22px 24px);
+}
+main { max-width: 560px; width: 100%; }
+.logo {
+	width: min(360px, 80vw);
+	height: auto;
+}
+h1 {
+	font-family: "Black Ops One", Impact, sans-serif;
+	font-weight: normal;
+	font-size: clamp(48px, 13vw, 84px);
+	letter-spacing: 0.04em;
+	line-height: 1;
+	color: var(--blood);
+	margin: 8px 0 12px;
+	text-shadow: 3px 3px 0 var(--ink);
+}
+.tagline { margin: 0 0 28px; }
+.download {
+	display: inline-block;
+	font-family: "Black Ops One", Impact, sans-serif;
+	font-size: 24px;
+	letter-spacing: 0.05em;
+	color: var(--paper);
+	background: var(--ink);
+	text-decoration: none;
+	padding: 16px 36px;
+	border: 3px solid var(--ink);
+	box-shadow: 6px 6px 0 var(--blood);
+	transition: transform 0.08s, box-shadow 0.08s, background 0.15s;
+}
+.download:hover { background: var(--blood-dark); }
+.download:active { transform: translate(4px, 4px); box-shadow: 2px 2px 0 var(--blood); }
+.download:focus-visible { outline: 3px dashed var(--blood); outline-offset: 6px; }
+.meta { color: var(--muted); font-size: 14px; margin: 18px 0 0; }
+.note {
+	color: var(--muted);
+	font-size: 14px;
+	margin: 28px auto 0;
+	max-width: 440px;
+}
+code { font-size: 11px; word-break: break-all; }
+footer { color: var(--muted); font-size: 13px; margin-top: 40px; }
+footer a { color: var(--muted); }
+</style>
+</head>
+<body>
+<main>
+	<img class="logo" src="logo.png" alt="Rotstead-Logo: Zombiekopf vor roter Sonne" width="560" height="560">
+	<h1>ROTSTEAD</h1>
+	<p class="tagline">Stell deine Überlebenden auf, rüste sie aus und schick sie durch die Horde.
+		Ein Zombie-Autobattler-Roguelite.</p>
+	<a class="download" href="https://github.com/Z3RP436/rotstead/releases/latest/download/Rotstead.exe">EXE HERUNTERLADEN</a>
+	<p class="meta">Windows 64-bit · v0.1.0 · 263 MB · keine Installation nötig</p>
+	<p class="note">Die exe ist nicht signiert. Wenn Windows SmartScreen warnt:
+		„Weitere Informationen“ → „Trotzdem ausführen“.<br>
+		SHA-256: <code>c1f53c906f7a3179c338fd2cae024a7a52b47941cfe5da148331521f22bed48d</code></p>
+</main>
+<footer>
+	<a href="https://github.com/Z3RP436/rotstead/releases">Alle Versionen</a>
+	· Schrift Black Ops One (<a href="OFL_BlackOpsOne.txt">OFL</a>)
+</footer>
+</body>
+</html>
